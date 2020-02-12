@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import { render } from 'react-testing-library';
-import { SmartPaymentButtons } from '../src';
+import { SmartSubscriptionButtons } from '../src';
 
 const buttonsRenderSpy = jest.fn();
 
@@ -11,14 +11,14 @@ global.window.paypal = {
   })),
 };
 
-describe('<SmartPaymentButtons />', () => {
+describe('<SmartSubscriptionButtons />', () => {
   let rerender;
   let container;
 
   beforeEach(() => {
     ({ rerender, container } = render((
-      <SmartPaymentButtons
-        createOrder={() => {}}
+      <SmartSubscriptionButtons
+        createSubscription={() => {}}
         onApprove={() => {}}
         refresh={false}
       />
@@ -27,7 +27,7 @@ describe('<SmartPaymentButtons />', () => {
 
   it('calls the Buttons method with all config parameters and nothing else', () => {
     expect(window.paypal.Buttons).toHaveBeenCalledWith({
-      createOrder: expect.any(Function),
+      createSubscription: expect.any(Function),
       onApprove: expect.any(Function),
       onCancel: expect.any(Function),
       onError: expect.any(Function),
@@ -35,8 +35,8 @@ describe('<SmartPaymentButtons />', () => {
     });
   });
 
-  it('renders the buttons into #SmartPaymentButtons', () => {
-    expect(buttonsRenderSpy).toHaveBeenCalledWith('#SmartPaymentButtons');
+  it('renders the buttons into #SmartSubscriptionButtons', () => {
+    expect(buttonsRenderSpy).toHaveBeenCalledWith('#SmartSubscriptionButtons');
   });
 
   it('render the buttons only once', () => {
@@ -45,8 +45,8 @@ describe('<SmartPaymentButtons />', () => {
 
   it('handles undefined refresh values', () => {
     rerender((
-      <SmartPaymentButtons
-        createOrder={() => {}}
+      <SmartSubscriptionButtons
+        createSubscription={() => {}}
         onApprove={() => {}}
         refresh={undefined}
       />
@@ -58,8 +58,8 @@ describe('<SmartPaymentButtons />', () => {
   describe('on refresh', () => {
     beforeEach(() => {
       rerender((
-        <SmartPaymentButtons
-          createOrder={() => {}}
+        <SmartSubscriptionButtons
+          createSubscription={() => {}}
           onApprove={() => {}}
           refresh
         />
